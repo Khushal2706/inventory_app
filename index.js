@@ -1,11 +1,14 @@
 
-import express from "express"
+import express, { urlencoded } from "express"
 import productController from "./src/controllers/product.controller.js"
 import path from "path"
 import ejsLayouts from "express-ejs-layouts"
 
 const server = express();
 
+// parse form data
+
+server.use(express.urlencoded({extended:true}));
 // create an instance of Product Controller
 
 // setup view engine settings
