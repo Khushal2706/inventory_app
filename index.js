@@ -17,6 +17,8 @@ server.use(ejsLayouts);
 const ProductController = new productController();
 server.get('/', ProductController.getProducts);
 server.use(express.static('src/views'));
+server.get("/new",ProductController.addForm);
+server.post("/", ProductController.addNewProduct);
 
 server.listen(3400,()=>{
     console.log("Server is Listening at Port 3400");
