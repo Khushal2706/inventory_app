@@ -12,7 +12,7 @@ const validateRequest = async(req,res,next)=>{
     // 3. check if there are any erros after running the rules.
     var validationErrors = validationResult(req);
     // 4. if errors, return error message
-    console.log(validationErrors)
+   //ss console.log(validationErrors)
       if(!validationErrors.isEmpty()){
         return res.render("new-product", {errorMessage: validationErrors.array()[0].msg});
       }
