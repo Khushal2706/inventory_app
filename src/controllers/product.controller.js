@@ -19,8 +19,9 @@ export default class productController{
     addNewProduct(req,res,next){
       // Validate data before uploading
       // extract the data
-      
-      ProductModel.add(req.body)
+      const{name, desc, price} = req.body;
+      const imageUrl = "images/"+req.file.filename;
+      ProductModel.add(name,desc,price,imageUrl);
       let products = ProductModel.get();
      return res.render('products',{products:products});
 
@@ -42,5 +43,16 @@ export default class productController{
       ProductModel.update(req.body)
       var products = ProductModel.get();
      return res.render('products',{products:products});
+    }
+
+    deleteProduct(req,res){
+      const id = req.params.id;
+      const productFound = ProductModel.getById(id);
+        if(!productFound){
+           return res.status(401).send('Product not Found');
+        }
+      ProductModel.delete(id);
+      var products = ProductModel.get();
+      res.render('products',{products});
     }
 }

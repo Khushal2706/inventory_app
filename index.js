@@ -4,7 +4,7 @@ import productController from "./src/controllers/product.controller.js"
 import path from "path"
 import ejsLayouts from "express-ejs-layouts"
 import validateRequest from "./src/middlewares/productValidation.middleware.js"
-
+import { uploadFile } from "./src/middlewares/file-upload.middleware.js"
 const server = express();
 
 // parse form data
@@ -17,13 +17,15 @@ server.set("view engine","ejs");
 server.set("views",path.join(path.resolve(),'src','views'));
 
 server.use(ejsLayouts);
+server.use(express.static('public'));
 
 const ProductController = new productController();
 server.get('/', ProductController.getProducts);
 server.get('/update-product/:id', ProductController.getUpdateProductView);
+server.post('/delete-product/:id',ProductController.deleteProduct);
 server.use(express.static('src/views'));
 server.get("/new",ProductController.addForm);
-server.post("/",validateRequest, ProductController.addNewProduct);
+server.post("/", uploadFile.single('imageUrl'),validateRequest,ProductController.addNewProduct);
 server.post('/update-product', ProductController.postUpdateProduct);
 
 server.listen(3400,()=>{
