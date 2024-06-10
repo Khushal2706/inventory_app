@@ -22,6 +22,7 @@ const validateRequest = async(req,res,next)=>{
         return res.render("new-product", {errorMessage: validationErrors.array()[0].msg});
       }
       next();
+                     
 };
 
 export default validateRequest;

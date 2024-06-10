@@ -6,7 +6,7 @@ export default class productController{
     getProducts(req,res,next){
         let products = ProductModel.get();
         //console.log(products);
-        res.render("products",{products:products});
+        res.render("products",{products});
       // return res.sendFile(path.join(path.resolve(),'src','views','products.html'));
     }
 
@@ -23,7 +23,7 @@ export default class productController{
       const imageUrl = "images/"+req.file.filename;
       ProductModel.add(name,desc,price,imageUrl);
       let products = ProductModel.get();
-     return res.render('products',{products:products});
+      res.render('products',{products});
 
     }
     getUpdateProductView(req,res,next){
@@ -42,17 +42,19 @@ export default class productController{
     postUpdateProduct(req,res){
       ProductModel.update(req.body)
       var products = ProductModel.get();
-     return res.render('products',{products:products});
+   res.render('products',{products});
     }
 
     deleteProduct(req,res){
       const id = req.params.id;
       const productFound = ProductModel.getById(id);
-        if(!productFound){
-           return res.status(401).send('Product not Found');
-        }
+      if (!productFound) {
+        return res
+          .status(401)
+          .send('Product not found');
+      }
       ProductModel.delete(id);
       var products = ProductModel.get();
-      res.render('products',{products});
+      res.render('products', { products });
     }
-}
+  }
