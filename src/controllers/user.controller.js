@@ -17,7 +17,7 @@ export default class UserController {
   }
 
   postLogin(req, res) {
-    const { email, password } = req.body;
+    const {email, password } = req.body;
     const user = userModel.isValidUser(
       email,
       password
@@ -27,6 +27,7 @@ export default class UserController {
         errorMessage: 'Invalid Credentials',
       });
     }
+   req.session.userEmail = email;
     var products = ProductModel.get();
     res.render('products', { products });
   }
