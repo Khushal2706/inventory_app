@@ -32,6 +32,7 @@ server.get('/register', usersController.getRegister);
 server.post('/register', usersController.postRegister);
 server.get('/login', usersController.getLogin);
 server.post('/login', usersController.postLogin);
+server.get('/logout', usersController.logout);
 server.get('/update-product/:id', auth,ProductController.getUpdateProductView);
 server.post('/delete-product/:id',auth, ProductController.deleteProduct);
 server.use(express.static('src/views'));
