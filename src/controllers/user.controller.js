@@ -41,5 +41,6 @@ export default class UserController {
         res.redirect('/login');
       }
     });
-  }
+    res.clearCookie('lastVisit');
+    }
 }

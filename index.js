@@ -8,8 +8,12 @@ import validateRequest from "./src/middlewares/productValidation.middleware.js"
 import { uploadFile } from "./src/middlewares/file-upload.middleware.js"
 import session from "express-session"
 import { auth } from "./src/middlewares/auth.middleware.js"
+import cookieParser from "cookie-parser"
+import { setLastVisit } from "./src/middlewares/lastVisit.middleware.js"
 
 const server = express();
+server.use(cookieParser());
+server.use(setLastVisit);
 
 // parse form data
 
